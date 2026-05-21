@@ -1,16 +1,15 @@
 // Gameboard factory function
-function gameBoard() {
-
+const gameBoard = (() => {
     const board = [
         [],
         [],
         [],
-    ]
-}
+    ];
+})();
 
 // Player factory function
-function player(name, marker) {
-    return { name, marker };
+function player(name, marker, score) {
+    return { name, marker, score };
 }
 
 // Gameflow factory function
