@@ -1,7 +1,7 @@
 // Gameboard factory function
 const gameBoard = (() => {
     // Gameboard array initialization
-    const board = [
+    let board = [
         ["", "", ""],
         ["", "", ""],
         ["", "", ""],
@@ -32,7 +32,7 @@ function player(name, marker, score) {
 
 // Gameflow factory function
 const gameFlow = (() => {
-    let turnCount = 0;
+    let turnCount = 1;
     let players;
     let currentPlayer;
 
