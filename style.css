@@ -1,0 +1,25 @@
+/* Update website font here */
+@font-face {
+    font-family: sans-serif;
+    src: url("");
+}
+
+/* Put colors here */
+:root {
+    /* Update this later */
+    --background: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Temporary font family */
+    font-family: sans-serif;
+    height: 100vh;
+    display: grid;
+    background-color: var(--background);
+}
