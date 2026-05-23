@@ -143,11 +143,26 @@ body {
 }
 
 .cell {
+    width: 100%;
+    height: 100%;
+    font-size: 3rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: var(--cell-background);
     border: 2px solid var(--neutral-theme-color);
     border-radius: 10px;
     cursor: pointer;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.x-marked {
+    color: var(--x-theme-color);
+}
+
+.o-marked {
+    color: var(--o-theme-color);
 }
 
 .scoreboard {
