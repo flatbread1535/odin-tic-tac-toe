@@ -11,6 +11,8 @@
     --cell-background: #222222;
     --x-theme-color: #FF3366;
     --o-theme-color: #0066FF;
+    --neutral-theme-color: #DCDCDCAA;
+    --cell-hover-color: #313131;
 }
 
 * {
@@ -24,7 +26,84 @@ body {
     font-family: sans-serif;
     height: 100vh;
     display: grid;
+    grid-template-rows: 25vh 50vh 25vh;
     background-color: var(--background);
+    overflow: hidden;
+}
+
+.user-controls form {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 60px;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 80px;
+}
+
+.player1-input,
+.player2-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.player1-ipt-label,
+.player2-ipt-label {
+    display: flex;
+    gap: 10px;
+}
+
+.player1-ipt-label svg {
+    fill: var(--x-theme-color);
+    width: 18px;
+    height: 18px;
+}
+
+.player2-ipt-label svg {
+    fill: var(--o-theme-color);
+    width: 18px;
+    height: 18px;
+}
+
+.player1-input label {
+    color: var(--x-theme-color);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.player2-input label {
+    color: var(--o-theme-color);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.player1-input input, 
+.player2-input input {
+    background: var(--cell-background);
+    border-radius: 30px;
+    height: 50px;
+    width: 200px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.player1-input input:focus,
+.player2-input input:focus {
+    outline: none;
+}
+
+.player1-input input {
+    border: 2px solid var(--x-theme-color);
+    color: var(--x-theme-color);
+}
+
+.player2-input input {
+    border: 2px solid var(--o-theme-color);
+    color: var(--o-theme-color);
 }
 
 .main {
@@ -33,9 +112,30 @@ body {
     align-items: center;
 }
 
+.restart-btn {
+    padding: 14px 40px;
+    border: none;
+    border-radius: 30px;
+    background: var(--cell-background);
+    border: 2px solid var(--neutral-theme-color);
+    color: var(--neutral-theme-color);
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.restart-btn:hover {
+    background: var(--cell-hover-color);
+}
+
+.restart-btn:active {
+    background: var(--cell-background);
+}
+
 .board {
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -44,7 +144,61 @@ body {
 
 .cell {
     background: var(--cell-background);
-    border: 2px solid black;
+    border: 2px solid var(--neutral-theme-color);
     border-radius: 10px;
+    cursor: pointer;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.scoreboard {
+    width: 500px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    justify-self: center;
+    align-self: center;
+}
+
+.player1-score,
+.ties,
+.player2-score {
+    height: 90px;
+    width: 135px;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 20px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.player1-score {
+    background: var(--x-theme-color);
+    color: var(--background);
+}
+
+.ties {
+    background: var(--neutral-theme-color);
+    color: var(--background);
+}
+
+.player2-score {
+    background: var(--o-theme-color);
+    color: var(--background);
+}
+
+.player1-score h2,
+.ties h2,
+.player2-score h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.player1-score p,
+.ties p,
+.player2-score p {
+    font-size: 24px;
+    font-weight: 700;
 }

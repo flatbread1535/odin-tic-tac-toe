@@ -9,25 +9,74 @@
 </head>
 
 <body>
-    <div class="user-controls"></div>
-
-    <div class="main">
-
-        <div class="board">
-            <div class="cell" data-id="1"></div>
-            <div class="cell" data-id="2"></div>
-            <div class="cell" data-id="3"></div>
-            <div class="cell" data-id="4"></div>
-            <div class="cell" data-id="5"></div>
-            <div class="cell" data-id="6"></div>
-            <div class="cell" data-id="7"></div>
-            <div class="cell" data-id="8"></div>
-            <div class="cell" data-id="9"></div>
-        </div>
-
+    <!-- Input for names, start/restart button, game header -->
+    <div class="user-controls">
+        <form>
+            <div class="player1-input">
+                <div class="player1-ipt-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                    </svg>
+                    <label for="p1-name">Enter Name</label>
+                </div>
+                <input type="text" id="p1-name" name="p1-name">
+            </div>
+            <button class="restart-btn">Restart</button>
+            <div class="player2-input">
+                <div class="player2-ipt-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                    </svg>
+                    <label for="p2-name">Enter Name</label>
+                </div>
+                <input type="text" id="p2-name" name="p2-name">
+            </div>
+        </form>
     </div>
 
-    <div class="scoreboard"></div>
+    <!-- Gameboard and results display -->
+    <div class="main">
+        <!-- Tic-Tac-Toe gameboard -->
+        <div class="board">
+            <button class="cell" data-id="1"></button>
+            <button class="cell" data-id="2"></button>
+            <button class="cell" data-id="3"></button>
+            <button class="cell" data-id="4"></button>
+            <button class="cell" data-id="5"></button>
+            <button class="cell" data-id="6"></button>
+            <button class="cell" data-id="7"></button>
+            <button class="cell" data-id="8"></button>
+            <button class="cell" data-id="9"></button>
+        </div>
+        
+        <!-- Display result of round in a dialog -->
+        <dialog>
+            <form method="dialog">
+                <p class="winner"><!-- Player 1/2 wins! --></p>
+                <div class="end-round-choices">
+                    <button class="exit">Exit</button>
+                    <button class="start-round">Start Next Round</button>
+                </div>
+            </form>
+        </dialog>
+    </div>
+
+    <div class="scoreboard">
+        <div class="player1-score">
+            <h2>Player 1</h2>
+            <p>0</p>
+        </div>
+        <div class="ties">
+            <h2>Ties</h2>
+            <p>0</p>
+        </div>
+        <div class="player2-score">
+            <h2>Player 2</h2>
+            <p>0</p>
+        </div>
+    </div>
 
     <script src="tic-tac-toe.js"></script>
 </body>
