@@ -7,7 +7,10 @@
 /* Put colors here */
 :root {
     /* Update this later */
-    --background: #FFFFFF;
+    --background: #121212;
+    --cell-background: #222222;
+    --x-theme-color: #FF3366;
+    --o-theme-color: #0066FF;
 }
 
 * {
@@ -22,4 +25,26 @@ body {
     height: 100vh;
     display: grid;
     background-color: var(--background);
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board {
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.cell {
+    background: var(--cell-background);
+    border: 2px solid black;
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
 }
