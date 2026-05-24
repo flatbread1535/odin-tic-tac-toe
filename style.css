@@ -1,6 +1,4 @@
-/* Put colors here */
 :root {
-    /* Update this later */
     --background: #121212;
     --cell-background: #222222;
     --x-theme-color: #FF3366;
@@ -16,7 +14,6 @@
 }
 
 body {
-    /* Temporary font family */
     font-family: sans-serif;
     height: 100vh;
     display: grid;
