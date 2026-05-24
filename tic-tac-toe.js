@@ -33,16 +33,23 @@ function player(name, marker, score) {
 // Gameflow factory function
 const gameFlow = (() => {
     let turnCount = 1;
-    let players;
-    let currentPlayer;
+    let players = [player("Player 1", "X", 0), player("Player 2", "O", 0)];
+    let currentPlayer = players[0];
+    let isGameOver = false;
+
+    // Sets the name of players
+    const setPlayerNames = (name1, name2) => {
+        players[0].name = name1 || "Player 1";
+        players[1].name = name2 || "Player 2";
+    };
 
     // Resets game logic to begin a new game
-    const startGame = (name1, name2) => {
-        players = [player(name1, "X", 0), player(name2, "O", 0)];
+    const resetGame = () => {
         currentPlayer = players[0];
         turnCount = 1;
+        isGameOver = false;
         gameBoard.reset();
-    }
+    };
 
     // Checks if a win has occured per turn
     const checkWin = () => {
@@ -85,44 +92,36 @@ const gameFlow = (() => {
 
     // Handles logic for every turn in the game
     const playTurn = (row, col) => {
+        if (isGameOver) {
+            return "done";
+        }
+
         gameBoard.placeMarker(row, col, currentPlayer.marker);
 
         // Check if the currentPlayer had a winning move
         if (checkWin()) {
             // Do something to trigger winning message on display???
             currentPlayer.score++;
-
-            // Update scoreboard for winning event
-            if (currentPlayer === players[0]) {
-                const score = document.querySelector(".player1-score p");
-                score.textContent = currentPlayer.score;
-            } else {
-                const score = document.querySelector(".player2-score p");
-                score.textContent = currentPlayer.score;
-            }
-
-            return;
+            isGameOver = true;
+            return "win";
         }
 
         // Check if board is filled
         if (turnCount === 9) {
             // Do something to trigger tie message on display???
-
-            // Update scoreboard for tying event
-            const tiesScore = document.querySelector(".ties p");
-            let score = Number(tiesScore.textContent);
-            score++
-            tiesScore.textContent = score;
-
-            return;
+            isGameOver = true;
+            return "tie";
         }
 
         // Switches turn between players
         currentPlayer = (currentPlayer === players[0]) ? players[1] : players[0];
         turnCount++;
+        return "continue";
     };
 
-    return { startGame, playTurn };
+    const getCurrentPlayer = () => currentPlayer;
+
+    return { setPlayerNames, resetGame, playTurn, getCurrentPlayer };
 })();
 
 // Handles the display/DOM logic of the game
@@ -154,10 +153,10 @@ const displayController = (() => {
 
     // Adds a mark to a specific spot on the board
     const addMark = () => {
-        const board = gameBoard.getBoard();
         const cells = document.querySelectorAll(".cell");
         cells.forEach(cell => {
             cell.addEventListener("click", () => {
+                const board = gameBoard.getBoard();
                 const cellIdx = Number(cell.dataset.id);
                 const row = Math.floor(cellIdx / 3);
                 const col = cellIdx % 3;
@@ -167,10 +166,35 @@ const displayController = (() => {
                     return;
                 }
 
-                gameFlow.playTurn(row, col);
+                const result = gameFlow.playTurn(row, col);
                 renderContents();
+
+                // Updates scores after a game result
+                if (result === "win") {
+                    const winner = gameFlow.getCurrentPlayer();
+                    updateWinningScore(winner);
+                } else if (result === "tie") {
+                    updateTyingScore();
+                }
             });
         });
+    };
+
+    const updateWinningScore = (player) => {
+        if (player.marker === "X") {
+            const score = document.querySelector(".player1-score p");
+            score.textContent = player.score;
+        } else {
+            const score = document.querySelector(".player2-score p");
+            score.textContent = player.score;
+        }
+    };
+
+    const updateTyingScore = () => {
+        const tyingScore = document.querySelector(".ties p");
+        let score = Number(tyingScore.textContent);
+        score++;
+        tyingScore.textContent = score;
     };
 
     // Restarts the game
@@ -181,10 +205,33 @@ const displayController = (() => {
         restartBtn.addEventListener("click", () => {
             const p1Name = p1Ipt.value || "Player 1";
             const p2Name = p2Ipt.value || "Player 2";
-            gameFlow.startGame(p1Name, p2Name);
+            gameFlow.setPlayerNames(p1Name, p2Name);
+            gameFlow.resetGame();
+            updateNames();
             renderContents();
         });
     };
 
-    return { renderContents, addMark, restart };
+    // Updates scoreboard names
+    const updateNames = () => {
+        const p1Ipt = document.querySelector("#p1-name");
+        const p2Ipt = document.querySelector("#p2-name");
+
+        const p1Name = p1Ipt.value || "Player 1";
+        const p2Name = p2Ipt.value || "Player 2";
+
+        const p1ScoreboardName = document.querySelector(".player1-score h2");
+        const p2ScoreboardName = document.querySelector(".player2-score h2");
+
+        p1ScoreboardName.textContent = p1Name;
+        p2ScoreboardName.textContent = p2Name;
+    };
+
+    return { renderContents, addMark, restart, updateNames };
 })();
+
+gameFlow.setPlayerNames("Player 1", "Player 2");
+gameFlow.resetGame();
+displayController.updateNames();
+displayController.addMark();
+displayController.restart();

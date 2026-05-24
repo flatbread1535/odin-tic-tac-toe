@@ -1,9 +1,3 @@
-/* Update website font here */
-@font-face {
-    font-family: sans-serif;
-    src: url("");
-}
-
 /* Put colors here */
 :root {
     /* Update this later */
