@@ -91,12 +91,29 @@ const gameFlow = (() => {
         if (checkWin()) {
             // Do something to trigger winning message on display???
             currentPlayer.score++;
+
+            // Update scoreboard for winning event
+            if (currentPlayer === players[0]) {
+                const score = document.querySelector(".player1-score p");
+                score.textContent = currentPlayer.score;
+            } else {
+                const score = document.querySelector(".player2-score p");
+                score.textContent = currentPlayer.score;
+            }
+
             return;
         }
 
         // Check if board is filled
         if (turnCount === 9) {
             // Do something to trigger tie message on display???
+
+            // Update scoreboard for tying event
+            const tiesScore = document.querySelector(".ties p");
+            let score = Number(tiesScore.textContent);
+            score++
+            tiesScore.textContent = score;
+
             return;
         }
 
